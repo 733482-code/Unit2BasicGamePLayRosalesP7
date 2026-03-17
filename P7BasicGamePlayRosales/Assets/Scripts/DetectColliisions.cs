@@ -1,22 +1,17 @@
 using UnityEngine;
 
-public class DetectColliisions : MonoBehaviour
+public class DetectCollisions : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     void OnTriggerEnter(Collider other)
     {
-        Destroy(gameObject);
-        Destroy(other.gameObject);
+        // If the projectile hits an animal
+        if (other.CompareTag("Animal"))
+        {
+            // Get the Hunger script from the animal and feed it
+            other.GetComponent<AnimalHunger>().FeedAnimal(1);
+
+            // Destroy ONLY the projectile (this script's object)
+            Destroy(gameObject);
+        }
     }
 }

@@ -4,6 +4,7 @@ public class DestoryOutOfBounds : MonoBehaviour
 {
     private float topBound = 30;
     private float lowerbound = -10;
+    private float sideBound = 30;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -15,13 +16,13 @@ public class DestoryOutOfBounds : MonoBehaviour
     void Update()
     {
         // if an object goes past the players view in the game, remove that object
-        if (transform.position.z > topBound)
+        if (transform.position.z > topBound || transform.position.z < lowerbound)
         {
             Destroy(gameObject);
         }
-        else if (transform.position.z < lowerbound)
+        else if (transform.position.x > sideBound || transform.position.x < -sideBound)
         {
-            Debug.Log("Game Over!");
+            GameObject.Find("GameManager").GetComponent<GameManager>().UpdateLives(-1);
             Destroy(gameObject);
         }
     }
